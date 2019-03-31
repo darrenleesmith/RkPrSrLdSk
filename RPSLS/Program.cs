@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System; //Default
+using System.Linq; //Used for Sum command
 
 namespace RPSLS
 {
@@ -7,43 +7,43 @@ namespace RPSLS
     {
         static void Main(string[] args)
         {
-            Tools t = new Tools();
-            Score s = new Score();
+            Tools t = new Tools(); //Location of all tools, these can be modified in the Tools.cs
+            Score s = new Score(); //Location of Scores, currently only stores UserAttempt, but will soon hold all the scores, Scores.cs
 
-            int Win = 0;
-            int Lose = 0;
-            int Draw = 0;
+            int Win = 0; // Default zero on every turn
+            int Lose = 0; // Default zero on every turn
+            int Draw = 0; // Default zero on every turn
 
-            Console.Title = t.Rock + " " + t.Paper + " " + t.Scissors + " " + t.Lizard + " " + t.Spock + ": The Game by Darren Smith";
-            Console.Write("What is your name? ");
-            string userName = Console.ReadLine();
-            Console.Clear();
+            Console.Title = t.Rock + " " + t.Paper + " " + t.Scissors + " " + t.Lizard + " " + t.Spock + ": The Game by Darren Smith"; //Console Title
+            Console.Write("What is your name? "); //Asks user for their name
+            string userName = Console.ReadLine(); //User input gets stored as a var "userName"
+            Console.Clear(); // Clears the screen
 
             while (true)
             {
-                Console.Title = (t.Rock + " " + t.Paper + " " + t.Scissors + " " + t.Lizard + " " + t.Spock + ": The Game by Darren Smith - User: "+ userName);
-                Random random = new Random();
-                int ComputerAttempt = random.Next(1, 6);
+                Console.Title = (t.Rock + " " + t.Paper + " " + t.Scissors + " " + t.Lizard + " " + t.Spock + ": The Game by Darren Smith - User: "+ userName); //Updates the console title to include userName Var
+                Random random = new Random(); 
+                int ComputerAttempt = random.Next(1, 6); //Created random number between 1 and 5 and stores it in the var ComputerAttempt
 
-                while (s.UserAttempt <= 5)
+                while (s.UserAttempt <= 5) // Creates a loop
                 {
-                    Console.Clear();
-                    int[] array1 = { Win, Lose, Draw };
-                    int Plays = array1.Sum();
+                    Console.Clear(); // This ensures the console is clear during every loop
+                    int[] array1 = { Win, Lose, Draw }; // Total plays within loop to ensure every move is counted
+                    int Plays = array1.Sum(); //var to show Score
 
-                    PrintColourMessage(ConsoleColor.Red, "Score: [Win "+Win+"] [Draw "+Draw+"] [Lose "+Lose +"] [Total "+Plays+"]");
-                    PrintColourMessage(ConsoleColor.Yellow, "Welcome to "+t.Rock+ ", "+t.Paper+ ", " + t.Scissors+ ", " + t.Lizard+ ", " + t.Spock);
-                    PrintColourMessage(ConsoleColor.White, t.SelOne +": "+ t.Rock +"\n"+ t.SelTwo + ": " + t.Paper +"\n"+ t.SelThree + ": " + t.Scissors +"\n"+ t.SelFour + ": " + t.Lizard+"\n" + t.SelFive + ": " + t.Spock);
+                    PrintColourMessage(ConsoleColor.Red, "Score: [Win "+Win+"] [Draw "+Draw+"] [Lose "+Lose +"] [Total "+Plays+"]"); //Displays Score information
+                    PrintColourMessage(ConsoleColor.Yellow, "Welcome to "+t.Rock+ ", "+t.Paper+ ", " + t.Scissors+ ", " + t.Lizard+ ", " + t.Spock); // Welcomes user
+                    PrintColourMessage(ConsoleColor.White, t.SelOne +": "+ t.Rock +"\n"+ t.SelTwo + ": " + t.Paper +"\n"+ t.SelThree + ": " + t.Scissors +"\n"+ t.SelFour + ": " + t.Lizard+"\n" + t.SelFive + ": " + t.Spock); //shows options
 
-                    Console.Write("Please make a selection ({0} to {1}): ", t.SelOne, t.SelFive);
-                    string userInput = Console.ReadLine();
-                    if (!int.TryParse(userInput, out s.UserAttempt))
+                    Console.Write("Please make a selection ({0} to {1}): ", t.SelOne, t.SelFive); //Asks user to select an option.
+                    string userInput = Console.ReadLine(); //User input stored in userInput
+                    if (!int.TryParse(userInput, out s.UserAttempt)) //Ensures user input is a number
                     {
                         continue;
                     }
                     s.UserAttempt = Int32.Parse(userInput);
 
-                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan; //Shows cpu attempt
                     Console.Write("\nComputer seletected: {0} - ", ComputerAttempt);
 
                     if (ComputerAttempt == 1)
@@ -68,7 +68,7 @@ namespace RPSLS
                     }
                     Console.ResetColor();
 
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Green; //Shows user attempt
                     Console.Write("{0} seletected: {1} - ",userName, s.UserAttempt);
 
                     if (s.UserAttempt == 1)
@@ -96,7 +96,7 @@ namespace RPSLS
                         Console.Write(t.Spock + "\n");
                         break;
                     }
-                    if (s.UserAttempt >= 5)
+                    if (s.UserAttempt >= 5) //Displays error if user selects a number higher than 5
                     {
                         PrintColourMessage(ConsoleColor.Red, "ERROR\nDEGUG: Please enter a number between 1 and 5\nDEBUG: Press any key");
                         Console.ReadKey();
@@ -271,30 +271,30 @@ namespace RPSLS
                 }
             }
         }
-        public static void scoreWinFun()
+        public static void scoreWinFun() //Method for when a user wins
         {
             PrintColourMessage(ConsoleColor.Green, " Win");
             retryMess();
         }
-        public static void scoreDrawFun()
+        public static void scoreDrawFun() //Method for when a user draws
         {
             PrintColourMessage(ConsoleColor.Yellow, " Draw");
             retryMess();
             
         }
-        public static void scoreLoseFun()
+        public static void scoreLoseFun() //Method for when a user loses
         {
             PrintColourMessage(ConsoleColor.Red, " Lose");
             retryMess();
         }
-        static void retryMess()
+        static void retryMess() //Restarts game
         {
             Score s = new Score();
             s.UserAttempt = 0;
             Console.WriteLine("Press any key to try again");
             Console.ReadKey();
         }
-        static void PrintColourMessage(ConsoleColor color, String message)
+        static void PrintColourMessage(ConsoleColor color, String message) //Method to clear up formatting to avoid duplication
         {
             Console.ForegroundColor = color;
             Console.WriteLine(message);
