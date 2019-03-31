@@ -297,8 +297,7 @@ namespace RPSLS
         static void PrintColourMessage(ConsoleColor color, String message) //Method to clear up formatting to avoid duplication
         {
             Console.ForegroundColor = color;
-            Console.WriteLine(message);
-            Console.WriteLine("");
+            Console.WriteLine(message+"\n");
             Console.ResetColor();
         }
     }
